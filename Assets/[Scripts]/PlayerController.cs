@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     public BulletManager bulletManager;
 
-    [Header("Boundary Check")]
-    public float horizontalBoundary;
+    [FormerlySerializedAs("horizontalBoundary")] [Header("Boundary Check")]
+    public float verticalBoundary;
 
-    [Header("Player Speed")]
-    public float horizontalSpeed;
+    [FormerlySerializedAs("verticalSpeed")] [Header("Player Speed")]
+    public float verticalSpeed;
     public float maxSpeed;
     public float horizontalTValue;
 
     [Header("Bullet Firing")]
     public float fireDelay;
+    public float fireInterval;
+    public GameObject ButtetSpawner;
 
     // Private variables
     private Rigidbody2D m_rigidBody;
@@ -41,9 +44,9 @@ public class PlayerController : MonoBehaviour
      private void _FireBullet()
     {
         // delay bullet firing 
-        if(Time.frameCount % 60 == 0 && bulletManager.HasBullets())
+        if(Time.frameCount % fireInterval == 0 && bulletManager.HasBullets())
         {
-            bulletManager.GetBullet(transform.position);
+            bulletManager.GetBullet(ButtetSpawner.transform.position);
         }
     }
 
@@ -56,13 +59,13 @@ public class PlayerController : MonoBehaviour
         {
             var worldTouch = Camera.main.ScreenToWorldPoint(touch.position);
 
-            if (worldTouch.x > transform.position.x)
+            if (worldTouch.y > transform.position.y)
             {
                 // direction is positive
                 direction = 1.0f;
             }
 
-            if (worldTouch.x < transform.position.x)
+            if (worldTouch.y < transform.position.y)
             {
                 // direction is negative
                 direction = -1.0f;
@@ -73,25 +76,25 @@ public class PlayerController : MonoBehaviour
         }
 
         // keyboard support
-        if (Input.GetAxis("Horizontal") >= 0.1f) 
+        if (Input.GetAxis("Vertical") >= 0.1f) 
         {
             // direction is positive
             direction = 1.0f;
         }
 
-        if (Input.GetAxis("Horizontal") <= -0.1f)
+        if (Input.GetAxis("Vertical") <= -0.1f)
         {
             // direction is negative
             direction = -1.0f;
         }
 
-        if (m_touchesEnded.x != 0.0f)
+        if (m_touchesEnded.y != 0.0f)
         {
-           transform.position = new Vector2(Mathf.Lerp(transform.position.x, m_touchesEnded.x, horizontalTValue), transform.position.y);
+           transform.position = new Vector2(transform.position.x,Mathf.Lerp(transform.position.y, m_touchesEnded.y, horizontalTValue));
         }
         else
         {
-            Vector2 newVelocity = m_rigidBody.velocity + new Vector2(direction * horizontalSpeed, 0.0f);
+            Vector2 newVelocity = m_rigidBody.velocity + new Vector2(0.0f,direction * verticalSpeed);
             m_rigidBody.velocity = Vector2.ClampMagnitude(newVelocity, maxSpeed);
             m_rigidBody.velocity *= 0.99f;
         }
@@ -100,15 +103,15 @@ public class PlayerController : MonoBehaviour
     private void _CheckBounds()
     {
         // check right bounds
-        if (transform.position.x >= horizontalBoundary)
+        if (transform.position.y >= verticalBoundary)
         {
-            transform.position = new Vector3(horizontalBoundary, transform.position.y, 0.0f);
+            transform.position = new Vector3(transform.position.x, verticalBoundary, 0.0f);
         }
 
         // check left bounds
-        if (transform.position.x <= -horizontalBoundary)
+        if (transform.position.y <= -verticalBoundary)
         {
-            transform.position = new Vector3(-horizontalBoundary, transform.position.y, 0.0f);
+            transform.position = new Vector3(transform.position.x, -verticalBoundary, 0.0f);
         }
 
     }
