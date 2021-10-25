@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: BulletFactory.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/18/2021
+//Description : Class for bullet factory. Create different bullet
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +17,14 @@ public class BulletFactory : MonoBehaviour
     public GameObject fatBullet;
     public GameObject pulsingBullet;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: createBullet
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Based on bullet type create a new bullet. If the player doesn't pass the bullet type,
+    //create a bullet form all bullet types randomly
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     public GameObject createBullet(BulletType type = BulletType.RANDOM)
     {
         if (type == BulletType.RANDOM)

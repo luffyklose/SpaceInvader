@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: BackgroundController.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/18/2021
+//Description : Class for background image
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,23 +14,50 @@ public class BackgroundController : MonoBehaviour
     public float horizontalSpeed;
     public float horizontalBoundary;
 
-    // Update is called once per frame
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: Update
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Update every frame
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     void Update()
     {
         _Move();
         _CheckBounds();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: Reset
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Reset the position of background image to initial position
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void _Reset()
     {
         transform.position = new Vector3(horizontalBoundary, 0.0f);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: Move
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : The background image moves toward left every frame
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void _Move()
     {
         transform.position -= new Vector3(horizontalSpeed, 0.0f) * Time.deltaTime;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: CheckBounds
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Check if the background image has moved out of the screen totally
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void _CheckBounds()
     {
         // if the background is lower than the bottom of the screen then reset

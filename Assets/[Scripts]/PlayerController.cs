@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: PlayerController.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/18/2021
+//Description : Class for player
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
@@ -26,14 +33,27 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rigidBody;
     private Vector3 m_touchesEnded;
 
-    // Start is called before the first frame update
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fuction Name: Start
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Set some necessary parameter
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     void Start()
     {
         m_touchesEnded = new Vector3();
         m_rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: Update
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Update every frame. Implement player's move and check if the player touches the border.
+    //Fire a bullet when cold down is over.
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     void Update()
     {
         _Move();
@@ -41,6 +61,13 @@ public class PlayerController : MonoBehaviour
         _FireBullet();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fuction Name: FireBullet
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Create a new bullet every certain time
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
      private void _FireBullet()
     {
         // delay bullet firing 
@@ -50,6 +77,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+     ////////////////////////////////////////////////////////////////////////////////////////////////////////
+     //Fucntion Name: Move
+     //Author: Zihan Xu
+     //Student Number: 101288760
+     //Last Modified On : 10/18/2021
+     //Description : The player's ship moves where the player touches on screen. Or move based on keyboard input
+     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void _Move()
     {
         float direction = 0.0f;
@@ -100,6 +134,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Fucntion Name: CheckBounds
+    //Author: Zihan Xu
+    //Student Number: 101288760
+    //Last Modified On : 10/18/2021
+    //Description : Stop when the player's ship touches the border
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void _CheckBounds()
     {
         // check right bounds
